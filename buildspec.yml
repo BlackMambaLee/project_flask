@@ -1,12 +1,4 @@
 version: 0.2
-env:
-  variables:
-    AWS_DEFAULT_REGION: "ap-northeast-2"
-    AWS_ACCOUNT_ID: "850095925860"
-    REGISTRY_NAME: "martinslee"
-    REGISTRY: "850095925860.dkr.ecr.ap-northeast-2.amazonaws.com"
-    COMMIT: "https://git-codecommit.ap-northeast-2.amazonaws.com/v1/repos/Flask_Project"
-    IMAGE_TAG: "multiarch-flask-0.1"
 phases:
   install:
     runtime-versions:
@@ -30,10 +22,6 @@ phases:
       - echo Building the Docker image...
       - docker buildx create --use --name multiarch
       - docker buildx build --push --platform=linux/amd64,linux/arm64 -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REGISTRY_NAME}:${IMAGE_TAG} ./
-      # - docker tag ${REGISTRY_NAME}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REGISTRY_NAME}:${IMAGE_TAG}
   post_build:
     commands:
-      # - echo Build completed on `date`
-      # - echo Pushing the Docker image...
-      # - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REGISTRY_NAME}:${IMAGE_TAG}
       - echo "updated line for codebuild ci"
